@@ -1,0 +1,61 @@
+[NestJS 설치]
+npm install -g @nestjs/cli
+npm install -g yarn 
+
+
+[Nest User 개발 과정]
+nest new nest-user-api
+cd nest-user-api
+yarn add @nestjs/jwt @nestjs/passport passport passport-jwt bcryptjs
+yarn add class-validator
+yarn add @types/bcrypt
+yarn add bcrypt
+> .env - DATABASE_URL 수정(로컬에 설치된 데이터베이스 url로 수정) + prisma/schema.prisma - db: provider 값 변경(“mysql")
+rm -rf src/app.controller.spec.ts src/app.controller.ts src/app.service.ts
+> src/app.module.ts - controllers, providers 값 삭제
+> .eslintrc.js - rules 값 추가 ('prettier/prettier':0)
+yarn add prisma @prisma/client
+npx prisma init
+> prisma/schema.prisma - model 작성
+npx prisma migrate dev --name init
+touch src/prisma.service.ts
+> src/book/prisma.service.ts - prisma service 작성
+mkdir src/user
+touch src/user/user.model.ts
+> src/user/user.model.ts - user model 작성
+touch src/user/user.service.ts
+> src/user/user.service.ts - user service 작성
+touch src/user/user.controller.ts
+> src/user/user.controller.ts - user controller 작성
+touch src/user/user.module.ts
+> src/user/user.module.ts - user module 작성
+> src/app.module.ts - imports 값 작성(UserModule)
+mkdir src/auth
+> .env - JWT_SECRET 작성(‘openssl rand -hex 64’명령어로 시크릿키 생성) + JWT_EXPIRES_IN 작성 ex) 1h -> 1시간
+touch src/auth/jwt.strategy.ts
+mkdir src/auth/dto
+touch src/auth/dto/login.dto.ts
+> src/auth/dto/login.dto.ts - login dto 작성
+touch src/auth/dto/register.dto.ts
+> src/auth/dto/register.dto.ts - register dto 작성
+touch src/auth/auth.service.ts
+> src/auth/auth.service.ts - auth service 작성
+touch src/auth/auth.guard.ts
+> src/auth/auth.guard.ts - auth guard 작성
+touch src/auth/auth.controller.ts
+> src/auth/auth.controller.ts - auth controller 작성
+touch src/auth/auth.module.ts
+> src/auth/auth.module.ts - auth module 작성
+> src/app.module.ts - imports 값 작성(AuthModule)
+> src/main.ts - cors 처리
+완료(RUN: yarn start:dev)
+
+
+[DB URL 수정시]
+npx prisma migrate dev
+npx prisma db drop
+npx prisma db create
+npx prisma migrate dev
+rm -rf node_modules/.prisma
+npm install
+yarn add prisma @prisma/client
