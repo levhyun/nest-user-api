@@ -15,5 +15,3 @@ async function bootstrap() {
   await app.listen(EnvService.getPort())
 }
 bootstrap()
-
-// TODO: 본인 인증, 권한
