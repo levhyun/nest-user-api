@@ -7,15 +7,21 @@ npm install -g yarn
 nest new nest-user-api
 cd nest-user-api
 yarn add @nestjs/jwt @nestjs/passport passport passport-jwt bcryptjs
+yarn add @types/passport
 yarn add class-validator
 yarn add @types/bcrypt
 yarn add bcrypt
-> .env - DATABASE_URL 수정(로컬에 설치된 데이터베이스 url로 수정) + prisma/schema.prisma - db: provider 값 변경(“mysql")
+yarn add class-validator class-transformer   
+yarn add  nest-status-monitor
+yarn add @nestjs/platform-socket.io        
+yarn add prisma @prisma/client
+npx prisma init
+yarn add @nestjs/config
+yarn add cross-env
+> .env - DATABASE_URL 수정(로컬에 설치된 데이터베이스 url로 수정) + prisma/schema.prisma - db: provider 값 변경(“mysql”)
 rm -rf src/app.controller.spec.ts src/app.controller.ts src/app.service.ts
 > src/app.module.ts - controllers, providers 값 삭제
 > .eslintrc.js - rules 값 추가 ('prettier/prettier':0)
-yarn add prisma @prisma/client
-npx prisma init
 > prisma/schema.prisma - model 작성
 npx prisma migrate dev --name init
 touch src/prisma.service.ts
